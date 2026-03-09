@@ -1,0 +1,15 @@
+SELECT order_id, COUNT(*) 
+FROM sales 
+GROUP BY order_id 
+HAVING COUNT(*) > 1;
+
+CREATE VIEW reporting_sales AS
+SELECT 
+    order_date,
+    category,
+    sub_category,
+    region,
+    city,
+    sales,
+    AVG(sales) OVER(PARTITION BY order_id) as avg_order_value
+FROM sales;
